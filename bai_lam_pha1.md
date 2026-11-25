@@ -121,7 +121,101 @@ Hãy xử lý từng tin nhắn độc lập, không bỏ sót thông tin và kh
 **PROMPT**
 
 ```text
-(Viết prompt vào đây – xoá dòng này)
+1. ROLE (Vai trò)
+Bạn là AI chuyên xử lý yêu cầu đặt vé và tính toán chi phí vé sự kiện. Nhiệm vụ của bạn là đọc bảng giá, áp dụng đúng các quy tắc tính giá và đưa ra tổng số tiền khách hàng cần thanh toán.
+2. CONTEXT (Bối cảnh)
+Khách hàng cung cấp thông tin về loại vé, số lượng người lớn, trẻ em và yêu cầu sử dụng khu ghế ưu tiên. Bạn phải tính toán dựa hoàn toàn vào dữ liệu được cung cấp bên dưới.
+3. INPUT DATA (Dữ liệu đầu vào)
+
+<du_lieu>
+BẢNG GIÁ VÉ (đồng/người lớn)
+- SVT – Sân Vận Động: 1.200.000 đồng.
+- FZ – Fan Zone: 800.000 đồng.
+- VIP – Khán đài VIP: 2.500.000 đồng.
+
+QUY TẮC TÍNH GIÁ
+1. Trẻ em từ 5 đến 11 tuổi tính 70% giá người lớn. Trẻ dưới 5 tuổi miễn phí.
+2. Nhóm từ 5 người lớn trở lên được giảm 5% trên tiền vé (tiền người lớn + tiền trẻ em).
+3. Phụ thu khu ghế ưu tiên: 300.000 đồng/người. Phụ thu không được giảm giá.
+4. Tổng tiền = tiền vé sau giảm + phụ thu.
+
+YÊU CẦU BÁO GIÁ
+Nhóm cổ động viên đi xem trận bán kết, mua gói SVT, gồm 5 người lớn, 2 trẻ em (8 tuổi và 10 tuổi) và 1 bé 3 tuổi. Có 1 người lớn chọn khu ghế ưu tiên.
+</du_lieu>
+4. TASK (Nhiệm vụ)
+Hãy tính tổng tiền khách hàng phải thanh toán theo đúng 6 bước sau:
+
+Bước 1: Tính tiền người lớn
+- Xác định giá vé người lớn theo gói đã chọn.
+- Ghi rõ phép tính: số người lớn × giá vé.
+
+Bước 2: Tính tiền trẻ em
+- Tính riêng giá vé từng trẻ theo độ tuổi.
+- Trẻ từ 5 đến 11 tuổi tính 70% giá người lớn.
+- Trẻ dưới 5 tuổi được miễn phí.
+- Ghi rõ phép tính của từng trẻ và tổng tiền trẻ em.
+
+Bước 3: Tính tiền vé
+- Cộng tiền người lớn và tiền trẻ em.
+- Ghi rõ phép tính và kết quả.
+
+Bước 4: Tính giảm giá nhóm
+- Kiểm tra điều kiện nhóm có từ 5 người lớn trở lên.
+- Nếu đủ điều kiện, giảm 5% trên tổng tiền vé (người lớn + trẻ em).
+- Nếu không đủ điều kiện, mức giảm bằng 0 đồng.
+- Ghi rõ phép tính số tiền được giảm.
+
+Bước 5: Tính phụ thu
+- Xác định số người chọn khu ghế ưu tiên.
+- Tính phụ thu 300.000 đồng/người.
+- Ghi rõ phép tính.
+- Không áp dụng giảm giá đối với khoản phụ thu.
+
+Bước 6: Tính tổng tiền
+- Lấy tiền vé trừ tiền giảm giá, sau đó cộng phụ thu.
+- Ghi rõ công thức và kết quả cuối cùng.
+5. CONSTRAINTS (Ràng buộc)
+- Chỉ sử dụng bảng giá và quy tắc trong dữ liệu đầu vào.
+- Không tự ý thay đổi giá vé hoặc tỷ lệ giảm giá.
+- Không tính trẻ dưới 5 tuổi vào tiền vé.
+- Điều kiện giảm giá được xét theo số người lớn, không phải tổng số khách.
+- Không áp dụng giảm giá cho phụ thu.
+- Không bỏ qua bất kỳ bước tính toán nào.
+- Tất cả phép tính phải chính xác và sử dụng đơn vị đồng.
+- Nếu dữ liệu thiếu hoặc mâu thuẫn, phải nêu rõ thay vì tự bịa thông tin.
+6. OUTPUT FORMAT (Định dạng đầu ra)
+
+Trình bày kết quả theo mẫu:
+
+BƯỚC 1: TIỀN NGƯỜI LỚN
+[Phép tính]
+Kết quả: ... đồng.
+
+BƯỚC 2: TIỀN TRẺ EM
+[Phép tính từng trẻ]
+Kết quả: ... đồng.
+
+BƯỚC 3: TIỀN VÉ
+[Phép tính]
+Kết quả: ... đồng.
+
+BƯỚC 4: GIẢM GIÁ NHÓM
+[Điều kiện và phép tính]
+Kết quả: ... đồng.
+
+BƯỚC 5: PHỤ THU
+[Phép tính]
+Kết quả: ... đồng.
+
+BƯỚC 6: TỔNG TIỀN
+[Phép tính cuối cùng]
+Kết quả: ... đồng.
+
+Dòng cuối cùng bắt buộc có định dạng:
+
+[RESULT: <tổng tiền> đồng]
+
+Chỉ sử dụng dữ liệu đã cung cấp, không thêm thông tin ngoài yêu cầu.
 ```
 
 ## 4.4. Dây chuyền xử lý khiếu nại (Prompt Chaining)
